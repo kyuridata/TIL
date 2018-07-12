@@ -1,0 +1,9 @@
+# today study list
+-English 
+-R internet lecture 1
+
+
+# todo list
+-R Quiz
+-SQL study comment
+
