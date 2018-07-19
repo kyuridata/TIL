@@ -1,0 +1,48 @@
+---
+title: "slicing practice"
+author: "Kyuri Park"
+date: "2018. 7. 19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+### get ready library
+```{r eval=FALSE}
+library(dplyr)
+library(readxl)
+```
+
+### importing data
+```{r}
+yearbmi <- read.csv("C:/Users/kyuripark/Downloads/bmi_clean.csv", header = T)
+head(yearbmi)
+```
+
+### goal of this analysis 
++ select Korea and China, average of 4 years bmi, making these result organize new data.frame
+```{r}
+colnames(yearbmi) <- c("Country",substr(colnames(yearbmi)[2:ncol(yearbmi)],2,5))
+x <- colnames(yearbmi) 
+y <- -2
+z <- c()
+Korea.mean <- c()
+China.mean <- c()
+for(i in 2:7){
+  result1 <- mean(unlist(yearbmi[grep("Korea, Rep",yearbmi$Country),i:i+3]))
+  Korea.mean <- c(Korea.mean, result1)
+  result2 <- mean(unlist(yearbmi[grep("^China",yearbmi$Country),i:i+3]))
+  China.mean <- c(China.mean, result2)
+  y <- y + 4
+  z <- c(z,paste(x[y],"~",x[y+3]))
+   
+
+}
+mean.result <- data.frame(Korea.mean,China.mean)
+rownames(mean.result) <- z
+mean.result
+```
